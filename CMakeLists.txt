@@ -21,6 +21,11 @@ add_executable(globalenv for_env/global_env/global_env.cpp)
 add_executable(mysql_connect for_mysql/mysql/connect.cpp)
 TARGET_LINK_LIBRARIES(mysql_connect libmysql)
 
+
+# ------------------------- epoll -------------------------
+add_executable(reactor epoll/reactor.c)
+add_executable(try_et_lt epoll/try_et_lt.c)
+
 # ------------------------- for_memory -------------------------
 # for_memory.for_align
 add_executable(byte_align for_memory/for_align/byte_align.cpp)
@@ -30,3 +35,6 @@ add_executable(size for_memory/for_size/size.cpp)
 
 # ------------------------- for_array -------------------------
 add_executable(array_traverse_ptr for_array/user_ptr/traversebyptr.cpp)
+
+# --------------------------- for_hash ---------------------------
+add_executable(lalian for_hash/lalian/lalian.cpp)
