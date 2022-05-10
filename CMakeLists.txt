@@ -9,8 +9,6 @@ include_directories(./dependencies/mysql/mysql)
 link_directories(./)
 link_directories(./dependencies/mysql-connector-c-6.1.11-winx64/lib)
 
-add_executable(udp_listen socket/udp_listen.c)
-add_executable(udp_client socket/udp_client.c)
 
 add_executable(cls_tpl_v1 for_template/cls_tpl/cls_tpl_v1.cpp)
 
@@ -20,6 +18,15 @@ add_executable(globalenv for_env/global_env/global_env.cpp)
 
 add_executable(mysql_connect for_mysql/mysql/connect.cpp)
 TARGET_LINK_LIBRARIES(mysql_connect libmysql)
+
+
+# ------------------------- socket -------------------------
+add_executable(tcp_listen socket/tcp_server.c)
+add_executable(tcp_client socket/tcp_client.c)
+add_executable(udp_listen socket/udp_listen.c)
+add_executable(udp_client socket/udp_client.c)
+
+# ------------------------- for_network -------------------------
 
 
 # ------------------------- epoll -------------------------

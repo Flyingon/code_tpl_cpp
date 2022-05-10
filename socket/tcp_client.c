@@ -1,45 +1,74 @@
-#include <stdio.h>
-#include <string.h>
-#include <arpa/inet.h>
-#include <sys/types.h>
+/* --- client.c --- */
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <netinet/ip.h>
- 
-#define PORT 23			//目标地址端口号
-#define ADDR "10.104.186.248" //目标地址IP
- 
-int main()
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+
+int main(int argc, char *argv[])
 {
-	int iSocketFD = 0; //socket句柄
-	unsigned int iRemoteAddr = 0;
-	struct sockaddr_in stRemoteAddr = {0}; //对端，即目标地址信息
-	socklen_t socklen = 0;  	
-	char buf[4096] = {0}; //存储接收到的数据
- 
-	iSocketFD = socket(AF_INET, SOCK_STREAM, 0); //建立socket
-	if(0 > iSocketFD)
-	{
-		printf("创建socket失败！\n");
-		return 0;
-	}	
- 
-	stRemoteAddr.sin_family = AF_INET;
-	stRemoteAddr.sin_port = htons(PORT);
-	inet_pton(AF_INET, ADDR, &iRemoteAddr);
-	stRemoteAddr.sin_addr.s_addr=iRemoteAddr;
-	
-	//连接方法： 传入句柄，目标地址，和大小
-	if(0 > connect(iSocketFD, (void *)&stRemoteAddr, sizeof(stRemoteAddr)))
-	{
-		printf("连接失败！\n");
-		//printf("connect failed:%d",errno);//失败时也可打印errno
-	}else{
-		printf("连接成功！\n");
-		recv(iSocketFD, buf, sizeof(buf), 0); 将接收数据打入buf，参数分别是句柄，储存处，最大长度，其他信息（设为0即可）。 
-		printf("Received:%s\n", buf);
-	}
-	
-	close(iSocketFD);//关闭socket	
-	return 0;
+    int sockfd = 0, n = 0;
+    char recvBuff[1024];
+    struct sockaddr_in serv_addr;
+
+//    if(argc != 2)
+//    {
+//        printf("\n Usage: %s <ip of server> \n",argv[0]);
+//        return 1;
+//    }
+
+    char* ip = "127.0.0.1";
+
+    memset(recvBuff, '0',sizeof(recvBuff));
+
+    /* a socket is created through call to socket() function */
+    if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+    {
+        printf("\n Error : Could not create socket \n");
+        return 1;
+    }
+
+    memset(&serv_addr, '0', sizeof(serv_addr));
+
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(5000);
+
+    if(inet_pton(AF_INET, ip, &serv_addr.sin_addr)<=0)
+    {
+        printf("\n inet_pton error occured\n");
+        return 1;
+    }
+
+    /* Information like IP address of the remote host and its port is
+     * bundled up in a structure and a call to function connect() is made
+     * which tries to connect this socket with the socket (IP address and port)
+     * of the remote host
+     */
+    if( connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
+    {
+        printf("\n Error : Connect Failed \n");
+        return 1;
+    }
+
+    /* Once the sockets are connected, the server sends the data (date+time)
+     * on clients socket through clients socket descriptor and client can read it
+     * through normal read call on the its socket descriptor.
+     */
+    while ( (n = read(sockfd, recvBuff, sizeof(recvBuff)-1)) > 0)
+    {
+        recvBuff[n] = 0;
+        if(fputs(recvBuff, stdout) == EOF)
+        {
+            printf("\n Error : Fputs error\n");
+        }
+    }
+
+    if(n < 0)
+    {
+        printf("\n Read error \n");
+    }
+
+    return 0;
 }
