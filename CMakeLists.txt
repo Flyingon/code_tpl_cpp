@@ -21,7 +21,7 @@ TARGET_LINK_LIBRARIES(mysql_connect libmysql)
 
 
 # ------------------------- socket -------------------------
-add_executable(tcp_listen socket/tcp_server.c)
+add_executable(tcp_listen socket/tcp_listen.c)
 add_executable(tcp_client socket/tcp_client.c)
 add_executable(udp_listen socket/udp_listen.c)
 add_executable(udp_client socket/udp_client.c)
