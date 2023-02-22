@@ -39,9 +39,14 @@ add_executable(byte_align for_memory/for_align/byte_align.cpp)
 
 # for_memory.for_size
 add_executable(size for_memory/for_size/size.cpp)
+add_executable(redis_size for_memory/for_size/redis.cpp)
 
 # ------------------------- for_array -------------------------
 add_executable(array_traverse_ptr for_array/user_ptr/traversebyptr.cpp)
 
 # --------------------------- for_hash ---------------------------
 add_executable(lalian for_hash/lalian/lalian.cpp)
+
+# --------------------------- toolkit ---------------------------
+add_executable(gcp_attach_download tookkit/gen_gcp_cmd/attach_download.c)
+
