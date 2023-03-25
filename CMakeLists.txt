@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 project(code_tpl_cpp)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 include_directories(./)
 include_directories(./dependencies/mysql/mysql)
@@ -50,3 +50,5 @@ add_executable(lalian for_hash/lalian/lalian.cpp)
 # --------------------------- toolkit ---------------------------
 add_executable(gcp_attach_download tookkit/gen_gcp_cmd/attach_download.c)
 
+# --------------------------- temp ---------------------------
+add_executable(temp temp/temp.cpp)
