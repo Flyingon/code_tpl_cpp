@@ -81,7 +81,7 @@ int main() {
     printf("sizof(long)=%d \n", sizeof(long));
     printf("sizof(float)=%d \n\n", sizeof(float));
 
-    printf("sizof(uint)=%d \n", sizeof(uint));
+    // printf("sizof(uint)=%d \n", sizeof(uint));
     printf("sizof(uint16_t)=%d \n", sizeof(uint16_t));
     printf("sizof(uint32_t)=%d \n", sizeof(uint32_t));
     printf("sizof(uint64_t)=%d \n", sizeof(uint64_t));

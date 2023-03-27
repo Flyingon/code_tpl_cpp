@@ -41,6 +41,9 @@ add_executable(byte_align for_memory/for_align/byte_align.cpp)
 add_executable(size for_memory/for_size/size.cpp)
 add_executable(redis_size for_memory/for_size/redis.cpp)
 
+# for_memory.show_memory
+add_executable(show_memory_by_arrow for_memory/show_memory/use_arrow.cpp)
+
 # ------------------------- for_array -------------------------
 add_executable(array_traverse_ptr for_array/user_ptr/traversebyptr.cpp)
 
@@ -52,3 +55,6 @@ add_executable(gcp_attach_download tookkit/gen_gcp_cmd/attach_download.c)
 
 # --------------------------- temp ---------------------------
 add_executable(temp temp/temp.cpp)
+
+# --------------------------- for_copy ---------------------------
+add_executable(copy_constructor for_copy/constructor.cpp)
