@@ -58,3 +58,6 @@ add_executable(temp temp/temp.cpp)
 
 # --------------------------- for_copy ---------------------------
 add_executable(copy_constructor for_copy/constructor.cpp)
+
+# --------------------------- const ---------------------------
+add_executable(const_basic for_const/basic.cpp)
