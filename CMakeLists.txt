@@ -3,6 +3,15 @@ project(code_tpl_cpp)
 
 set(CMAKE_CXX_STANDARD 17)
 
+if (CMAKE_HOST_WIN32)
+    set(WINDOWS 1)
+elseif(CMAKE_HOST_APPLE)
+    set(MACOS 1)
+elseif(CMAKE_HOST_UNIX)
+    set(LINUX 1)
+endif()
+
+
 include_directories(./)
 include_directories(./dependencies/mysql/mysql)
 
@@ -58,3 +67,23 @@ add_executable(temp temp/temp.cpp)
 
 # --------------------------- for_copy ---------------------------
 add_executable(copy_constructor for_copy/constructor.cpp)
+
+# --------------------------- for_glfw ---------------------------
+if(WINDOWS)
+    set(GLFW_PATH "D:/Develop/cpp_dependencies/glfw-3.3.8.bin.WIN64")
+
+    include_directories("${GLFW_PATH}/include")
+
+    # use lib
+    target_link_libraries(temp "${GLFW_PATH}/lib-vc2019/glfw3.lib")
+
+    # # use dll
+    # target_link_libraries(temp "${GLFW_PATH}/lib-vc2019/glfw3dll.lib")
+    # add_custom_command(TARGET  temp POST_BUILD        # Adds a post-build event to MyTest
+    # COMMAND ${CMAKE_COMMAND} -E copy_if_different  # which executes "cmake - E copy_if_different..."
+    #    "${GLFW_PATH}/lib-vc2019/glfw3.dll"      # <--this is in-file
+    #    $<TARGET_FILE_DIR:temp>)                 # <--this is out-file path
+
+elseif(LINUX)
+elseif(MACOS)
+endif()

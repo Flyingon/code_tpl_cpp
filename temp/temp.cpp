@@ -1,17 +1,16 @@
 
 #include <stdio.h>
-#include <unistd.h>
-#include <string.h>
+
 #include <iostream>
+#include <GLFW/glfw3.h>
+
 
 void c_strcpy(char *strDest, char *strSrc) {
     while ((*strDest++ = *strSrc++) != '\0');
 }
 
 int main(void) {
-    char* name = "joeyuan";
-    name[2] = 'b';
-    std::cout << name << std::endl;
-    return 0;
+    int res = glfwInit();
+    std::cout << res << std::endl;
 }
 
