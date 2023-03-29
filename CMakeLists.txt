@@ -68,6 +68,7 @@ add_executable(temp temp/temp.cpp)
 # --------------------------- for_copy ---------------------------
 add_executable(copy_constructor for_copy/constructor.cpp)
 
+
 # --------------------------- for_glfw ---------------------------
 if(WINDOWS)
     set(GLFW_PATH "D:/Develop/cpp_dependencies/glfw-3.3.8.bin.WIN64")
@@ -87,3 +88,7 @@ if(WINDOWS)
 elseif(LINUX)
 elseif(MACOS)
 endif()
+
+# --------------------------- const ---------------------------
+add_executable(const_basic for_const/basic.cpp)
+
