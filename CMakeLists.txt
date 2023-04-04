@@ -5,11 +5,11 @@ set(CMAKE_CXX_STANDARD 17)
 
 if (CMAKE_HOST_WIN32)
     set(WINDOWS 1)
-elseif(CMAKE_HOST_APPLE)
+elseif (CMAKE_HOST_APPLE)
     set(MACOS 1)
-elseif(CMAKE_HOST_UNIX)
+elseif (CMAKE_HOST_UNIX)
     set(LINUX 1)
-endif()
+endif ()
 
 
 include_directories(./)
@@ -18,8 +18,6 @@ include_directories(./dependencies/mysql/mysql)
 link_directories(./)
 link_directories(./dependencies/mysql-connector-c-6.1.11-winx64/lib)
 
-
-add_executable(cls_tpl_v1 for_template/cls_tpl/cls_tpl_v1.cpp)
 
 add_executable(base64 for_encode/base64/base64.cpp)
 
@@ -70,7 +68,7 @@ add_executable(copy_constructor for_copy/constructor.cpp)
 
 
 # --------------------------- for_glfw ---------------------------
-if(WINDOWS)
+if (WINDOWS)
     set(GLFW_PATH "D:/Develop/cpp_dependencies/glfw-3.3.8.bin.WIN64")
 
     include_directories("${GLFW_PATH}/include")
@@ -85,10 +83,16 @@ if(WINDOWS)
     #    "${GLFW_PATH}/lib-vc2019/glfw3.dll"      # <--this is in-file
     #    $<TARGET_FILE_DIR:temp>)                 # <--this is out-file path
 
-elseif(LINUX)
-elseif(MACOS)
-endif()
+elseif (LINUX)
+elseif (MACOS)
+endif ()
 
 # --------------------------- const ---------------------------
 add_executable(const_basic for_const/basic.cpp)
 
+# --------------------------- for_template ---------------------------
+add_executable(cls_tpl_v1 for_template/cls_tpl/cls_tpl_v1.cpp)
+add_executable(func_tpl_print for_template/func_tpl/print.cpp)
+
+# --------------------------- for_tree ---------------------------
+add_executable(b+tree for_tree/bplus/basic.cpp)
