@@ -96,3 +96,6 @@ add_executable(func_tpl_print for_template/func_tpl/print.cpp)
 
 # --------------------------- for_tree ---------------------------
 add_executable(b+tree for_tree/bplus/basic.cpp)
+
+# --------------------------- for_point ---------------------------
+add_executable(func_point for_point/function/func_point.cpp)
