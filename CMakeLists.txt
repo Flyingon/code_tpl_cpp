@@ -53,6 +53,7 @@ add_executable(show_memory_by_arrow for_memory/show_memory/use_arrow.cpp)
 
 # ------------------------- for_array -------------------------
 add_executable(array_traverse_ptr for_array/user_ptr/traversebyptr.cpp)
+add_executable(array_multi_basic for_array/multidimensional/basic.cpp)
 
 # --------------------------- for_hash ---------------------------
 add_executable(lalian for_hash/lalian/lalian.cpp)
@@ -102,3 +103,6 @@ add_executable(func_pointer for_pointer/function/func_pointer.cpp)
 
 # --------------------------- for_thread ---------------------------
 add_executable(thread_basic for_thread/basic/basic.cpp)
+
+# --------------------------- for_chrono ---------------------------
+add_executable(chrono_timer for_chrono/timer/timer.cpp)
