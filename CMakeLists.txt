@@ -13,11 +13,13 @@ endif ()
 
 
 include_directories(./)
-include_directories(./dependencies/mysql/mysql)
-
 link_directories(./)
-link_directories(./dependencies/mysql-connector-c-6.1.11-winx64/lib)
 
+
+if (WINDOWS)
+    include_directories(./dependencies/mysql/mysql)
+    link_directories(./dependencies/mysql-connector-c-6.1.11-winx64/lib)
+endif ()
 
 add_executable(base64 for_encode/base64/base64.cpp)
 
@@ -57,12 +59,6 @@ add_executable(array_multi_basic for_array/multidimensional/basic.cpp)
 
 # --------------------------- for_hash ---------------------------
 add_executable(lalian for_hash/lalian/lalian.cpp)
-
-# --------------------------- toolkit ---------------------------
-add_executable(gcp_attach_download tookkit/gen_gcp_cmd/attach_download.c)
-
-# --------------------------- temp ---------------------------
-add_executable(temp temp/temp.cpp)
 
 # --------------------------- for_copy ---------------------------
 add_executable(copy_constructor for_copy/constructor.cpp)
@@ -106,3 +102,22 @@ add_executable(thread_basic for_thread/basic/basic.cpp)
 
 # --------------------------- for_chrono ---------------------------
 add_executable(chrono_timer for_chrono/timer/timer.cpp)
+
+# --------------------------- for_type ---------------------------
+add_executable(type_punning for_type/type_punning/type_punning.cpp)
+
+# --------------------------- for_union ---------------------------
+add_executable(union_one for_union/example_one/example_one.cpp)
+
+# --------------------------- toolkit ---------------------------
+add_executable(gcp_attach_download tookkit/gen_gcp_cmd/attach_download.c)
+
+#if (MACOS)
+#include_directories(/opt/homebrew/opt/sqlite/include)
+#link_directories(/opt/homebrew/opt/sqlite/lib)
+#endif()
+
+add_executable(record tookkit/memo_tool/record.cpp)
+
+# --------------------------- temp ---------------------------
+add_executable(temp temp/temp.cpp)
