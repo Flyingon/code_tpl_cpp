@@ -8,6 +8,7 @@
 #include <string>
 #include <sqlite3.h>
 
+
 class Sqlite3 {
 private:
     std::string db_path;

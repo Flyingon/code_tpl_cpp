@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "m_sqlite3.h"
+#include "m_sqlite3.cpp"
 #include "read_file.cpp"
 
 

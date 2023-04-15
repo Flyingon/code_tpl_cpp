@@ -109,13 +109,20 @@ add_executable(type_punning for_type/type_punning/type_punning.cpp)
 # --------------------------- for_union ---------------------------
 add_executable(union_one for_union/example_one/example_one.cpp)
 
+# --------------------------- for_db ---------------------------
+if (TARGET sqlite_demo)
+endif ()
+if (MACOS)
+    include_directories(/opt/homebrew/opt/sqlite/include/)
+    link_directories(/opt/homebrew/opt/sqlite/lib/)
+    link_libraries(sqlite3)
+endif ()
+
+add_executable(sqlite_demo for_db/for_sqlite3/demo.cpp)
+
+
 # --------------------------- toolkit ---------------------------
 add_executable(gcp_attach_download tookkit/gen_gcp_cmd/attach_download.c)
-
-#if (MACOS)
-#include_directories(/opt/homebrew/opt/sqlite/include)
-#link_directories(/opt/homebrew/opt/sqlite/lib)
-#endif()
 
 add_executable(record tookkit/memo_tool/record.cpp)
 
