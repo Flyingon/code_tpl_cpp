@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 const char* cmd_attach_tpl = "kubectl exec -it %s -- /bin/bash";
-const char* cmd_download_tpl = "kubectl cp %s:/deploy/%s /Users/zy.yuan/Job/temp/%s";
+const char* cmd_download_tpl = "kubectl cp %s:/deploy/%s ~/Job/temp/%s";
 
 int main(int argc, char *argv[]) {
     if (argc < 3) {

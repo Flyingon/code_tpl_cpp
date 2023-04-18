@@ -124,7 +124,8 @@ add_executable(sqlite_demo for_db/for_sqlite3/demo.cpp)
 # --------------------------- toolkit ---------------------------
 add_executable(gcp_attach_download tookkit/gen_gcp_cmd/attach_download.c)
 
-add_executable(record tookkit/memo_tool/record.cpp)
+add_executable(memo_tool_record tookkit/memo_tool/record.cpp)
+add_executable(memo_tool_show tookkit/memo_tool/show.cpp)
 
 # --------------------------- temp ---------------------------
 add_executable(temp temp/temp.cpp)
