@@ -126,6 +126,7 @@ add_executable(gcp_attach_download tookkit/gen_gcp_cmd/attach_download.c)
 
 add_executable(memo_tool_record tookkit/memo_tool/record.cpp)
 add_executable(memo_tool_show tookkit/memo_tool/show.cpp)
+add_executable(memo_tool_update tookkit/memo_tool/update.cpp)
 
 # --------------------------- temp ---------------------------
 add_executable(temp temp/temp.cpp)
