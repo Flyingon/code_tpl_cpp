@@ -109,6 +109,11 @@ add_executable(type_punning for_type/type_punning/type_punning.cpp)
 # --------------------------- for_union ---------------------------
 add_executable(union_one for_union/example_one/example_one.cpp)
 
+# --------------------------- for_move_semantic ---------------------------
+add_executable(move_semantic_demo1 for_move_semantic/demo/basic.cpp)
+add_executable(move_semantic_string for_move_semantic/demo/demo_string.cpp)
+
+
 # --------------------------- for_db ---------------------------
 if (TARGET sqlite_demo)
 endif ()
