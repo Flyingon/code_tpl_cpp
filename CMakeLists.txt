@@ -12,13 +12,16 @@ elseif (CMAKE_HOST_UNIX)
 endif ()
 
 
-include_directories(./)
-link_directories(./)
+#include_directories(./)
+#link_directories(./)
 
 
 if (WINDOWS)
     include_directories(./dependencies/mysql/mysql)
     link_directories(./dependencies/mysql-connector-c-6.1.11-winx64/lib)
+elseif (MACOS)
+    include_directories(~/.dependencies/boost_1_82_0/)
+
 endif ()
 
 add_executable(base64 for_encode/base64/base64.cpp)
@@ -112,6 +115,9 @@ add_executable(union_one for_union/example_one/example_one.cpp)
 # --------------------------- for_move_semantic ---------------------------
 add_executable(move_semantic_demo1 for_move_semantic/demo/basic.cpp)
 add_executable(move_semantic_string for_move_semantic/demo/demo_string.cpp)
+
+# --------------------------- for_str ---------------------------
+add_executable(str_split for_str/split/split.cpp)
 
 
 # --------------------------- for_db ---------------------------
