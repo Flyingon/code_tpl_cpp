@@ -41,7 +41,7 @@ int query_record_table(Sqlite3 &sqlite3, std::string &msg, const std::string &ty
         else
             sql += " WHERE status in (" + status_str + ")";
     }
-  std::cout << "[SQL] " << sql << std::endl;
+//  std::cout << "[SQL] " << sql << std::endl;
     return sqlite3.sql_execute(sql, msg);
 }
 
@@ -59,6 +59,12 @@ int main(int argc, char *argv[]) {
         case 1:  // no param, query all
         {
             res = query_record_table(sqlite3, msg, "", status_list);
+            break;
+        }
+        case 2:  // only type
+        {
+            std::string type = argv[1];
+            res = query_record_table(sqlite3, msg, type, status_list);
             break;
         }
         case 3:  // two params

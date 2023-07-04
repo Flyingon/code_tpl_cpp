@@ -2,11 +2,12 @@
 #include <stdio.h>
 
 #include <iostream>
-//#include <GLFW/glfw3.h>
-#include <boost/algorithm/string.hpp>
 #include <vector>
+#include <string>
 
-using namespace  std;
+using namespace std;
+
+
 void c_strcpy(char *strDest, char *strSrc) {
     while ((*strDest++ = *strSrc++) != '\0');
 }
@@ -22,16 +23,27 @@ std::string *test_return_string() {
     return &j;
 }
 
-int main(void) {
-//    int res = glfwInit();
+class ABC {
+public:
+    int number;
+    int numbers[5];
 
+    ABC(int in_number) : number(in_number) {
+        numbers[in_number] = in_number;
+    }
+
+    ~ABC() {
+        std::cout << "~ABC" << std::endl;
+    }
+};
+
+int main(void) {
 //    std::string *res = test_return_string();
-//    std::cout << *res << std::endl;
-//    char a_str[100] = "aaa,fff,eedakc,cccc";
-//    char *ptr = strtok(a_str, ",");
-//    std::cout << "XXX: " << ptr << std::endl;
-    string a = "";
-    cout << a.size() << endl;
-    cout << a.length() << endl;
+//    cout << res << endl;
+    for (int i = 0; i < 5; i++) {
+        ABC abc = ABC(i);
+        std::cout << &abc << " " << &abc.number << " " << abc.number << " " << &abc.numbers << " " << abc.numbers[2]
+                  << std::endl;
+    }
 }
 
