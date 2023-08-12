@@ -56,6 +56,9 @@ add_executable(redis_size for_memory/for_size/redis.cpp)
 # for_memory.show_memory
 add_executable(show_memory_by_arrow for_memory/show_memory/use_arrow.cpp)
 
+# for_memory.func_return_struct
+add_executable(func_return_struct for_memory/func_return/struct.cpp)
+
 # ------------------------- for_array -------------------------
 add_executable(array_traverse_ptr for_array/user_ptr/traversebyptr.cpp)
 add_executable(array_multi_basic for_array/multidimensional/basic.cpp)
@@ -116,10 +119,6 @@ add_executable(union_one for_union/example_one/example_one.cpp)
 add_executable(move_semantic_demo1 for_move_semantic/demo/basic.cpp)
 add_executable(move_semantic_string for_move_semantic/demo/demo_string.cpp)
 
-# --------------------------- for_str ---------------------------
-add_executable(str_split for_str/split/split.cpp)
-
-
 # --------------------------- for_db ---------------------------
 if (TARGET sqlite_demo)
 endif ()
@@ -140,4 +139,8 @@ add_executable(memo_tool_show tookkit/memo_tool/show.cpp)
 add_executable(memo_tool_update tookkit/memo_tool/update.cpp)
 
 # --------------------------- temp ---------------------------
+if (MACOS)
+#    link_directories(/opt/homebrew/opt/sqlite/lib/)
+    link_libraries(curl)
+endif ()
 add_executable(temp temp/temp.cpp)
