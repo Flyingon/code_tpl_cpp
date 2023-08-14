@@ -69,6 +69,8 @@ add_executable(lalian for_hash/lalian/lalian.cpp)
 # --------------------------- for_copy ---------------------------
 add_executable(copy_constructor for_copy/constructor.cpp)
 
+# --------------------------- for_string ---------------------------
+add_executable(string_heap for_string/str_cls/str_on_heap.cc)
 
 # --------------------------- for_glfw ---------------------------
 if (WINDOWS)
