@@ -32,9 +32,11 @@
 *.app
 
 cmake-build-debug
+build
 .idea
 .vs
 out
 .vscode
+.DS_Store
 
 bin

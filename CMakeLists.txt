@@ -140,9 +140,15 @@ add_executable(memo_tool_record tookkit/memo_tool/record.cpp)
 add_executable(memo_tool_show tookkit/memo_tool/show.cpp)
 add_executable(memo_tool_update tookkit/memo_tool/update.cpp)
 
+add_executable(cache_file tookkit/cache_file/cache_file.cpp)
+
 # --------------------------- temp ---------------------------
 if (MACOS)
-#    link_directories(/opt/homebrew/opt/sqlite/lib/)
-    link_libraries(curl)
+    include_directories(/opt/homebrew/opt/openssl/include /opt/homebrew/opt/jsoncpp/include)
+
+#    link_directories(/opt/homebrew/opt/jsoncpp/lib /opt/homebrew/opt/openssl/lib/)
+    #    link_libraries(/opt/homebrew/opt/openssl/lib/libcrypto.a)
+    link_libraries(curl jsoncpp)
 endif ()
+
 add_executable(temp temp/temp.cpp)
