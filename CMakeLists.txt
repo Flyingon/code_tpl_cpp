@@ -141,6 +141,7 @@ add_executable(memo_tool_show tookkit/memo_tool/show.cpp)
 add_executable(memo_tool_update tookkit/memo_tool/update.cpp)
 
 add_executable(cache_file tookkit/cache_file/cache_file.cpp)
+add_executable(parserso tookkit/parseso/soparse.c tookkit/parseso/dataType.h tookkit/parseso/elf.h)
 
 # --------------------------- temp ---------------------------
 if (MACOS)
