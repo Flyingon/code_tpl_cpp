@@ -71,6 +71,7 @@ add_executable(copy_constructor for_copy/constructor.cpp)
 
 # --------------------------- for_string ---------------------------
 add_executable(string_heap for_string/str_cls/str_on_heap.cc)
+add_executable(string_join for_string/operator/join.cc)
 
 # --------------------------- for_glfw ---------------------------
 if (WINDOWS)
@@ -147,7 +148,7 @@ add_executable(parserso tookkit/parseso/soparse.c tookkit/parseso/dataType.h too
 if (MACOS)
     include_directories(/opt/homebrew/opt/openssl/include /opt/homebrew/opt/jsoncpp/include)
 
-#    link_directories(/opt/homebrew/opt/jsoncpp/lib /opt/homebrew/opt/openssl/lib/)
+    #    link_directories(/opt/homebrew/opt/jsoncpp/lib /opt/homebrew/opt/openssl/lib/)
     #    link_libraries(/opt/homebrew/opt/openssl/lib/libcrypto.a)
     link_libraries(curl jsoncpp)
 endif ()
