@@ -99,6 +99,7 @@ add_executable(const_basic for_const/basic.cpp)
 # --------------------------- for_template ---------------------------
 add_executable(cls_tpl_v1 for_template/cls_tpl/cls_tpl_v1.cpp)
 add_executable(func_tpl_print for_template/func_tpl/print.cpp)
+add_executable(multi_type_vector for_template/vector/multi_type_vector.cpp)
 
 # --------------------------- for_tree ---------------------------
 add_executable(b+tree for_tree/bplus/basic.cpp)
