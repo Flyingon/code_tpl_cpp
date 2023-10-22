@@ -108,6 +108,10 @@ add_executable(func_pointer for_pointer/function/func_pointer.cpp)
 
 # --------------------------- for_thread ---------------------------
 add_executable(thread_basic for_thread/basic/basic.cpp)
+add_executable(trhead_lock_demo1_unlock for_thread/lock/demo1.cpp)
+add_executable(trhead_lock_demo2_lock for_thread/lock/demo2.cpp)
+add_executable(trhead_lock_demo3_dead_lock for_thread/lock/demo3.cpp)
+add_executable(trhead_lock_demo4_lock_guard for_thread/lock/demo4.cpp)
 
 # --------------------------- for_chrono ---------------------------
 add_executable(chrono_timer for_chrono/timer/timer.cpp)
@@ -143,6 +147,11 @@ add_executable(memo_tool_update tookkit/memo_tool/update.cpp)
 
 add_executable(cache_file tookkit/cache_file/cache_file.cpp)
 add_executable(parserso tookkit/parseso/soparse.c tookkit/parseso/dataType.h tookkit/parseso/elf.h)
+
+
+# --------------------------- for_pragma_once ---------------------------
+include_directories(for_pragma_once/dir3 for_pragma_once/dir2)
+add_executable(dir1_execute for_pragma_once/dir1/execute.cpp)
 
 # --------------------------- temp ---------------------------
 if (MACOS)
