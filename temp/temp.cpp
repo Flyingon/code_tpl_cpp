@@ -1,49 +1,52 @@
-
-#include <stdio.h>
-
+#include <SDL2/SDL.h>
 #include <iostream>
-#include <vector>
-#include <string>
 
-using namespace std;
+int main(int argc, char* argv[])
+{
+    SDL_Init(SDL_INIT_VIDEO);
 
+    SDL_Window* window = SDL_CreateWindow("SDL Input Example",
+                                          SDL_WINDOWPOS_UNDEFINED,
+                                          SDL_WINDOWPOS_UNDEFINED,
+                                          640,
+                                          480,
+                                          0);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
-void c_strcpy(char *strDest, char *strSrc) {
-    while ((*strDest++ = *strSrc++) != '\0');
-}
+    std::string inputText;
 
-int test_return_int() {
-    int i = 10;
-    return i;
-}
+    bool quit = false;
+    SDL_Event event;
+    while (!quit)
+    {
+        SDL_WaitEvent(&event);
+        switch (event.type)
+        {
+            case SDL_QUIT:
+                quit = true;
+            break;
 
-std::string *test_return_string() {
-    std::string j = "10";
-    std::cout << &j << std::endl;
-    return &j;
-}
+            case SDL_TEXTINPUT:
+                inputText += event.text.text;
+            break;
 
-class ABC {
-public:
-    int number;
-    int numbers[5];
+            case SDL_KEYDOWN:
+                if (event.key.keysym.sym == SDLK_RETURN || event.key.keysym.sym == SDLK_KP_ENTER)
+                {
 
-    ABC(int in_number) : number(in_number) {
-        numbers[in_number] = in_number;
+                    std::cout << "Input Text: " << inputText << std::endl;
+                    inputText.clear();
+                }
+            break;
+        }
+
+        SDL_RenderClear(renderer);
+        SDL_RenderPresent(renderer);
     }
 
-    ~ABC() {
-        std::cout << "~ABC" << std::endl;
-    }
-};
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 
-int main(void) {
-//    std::string *res = test_return_string();
-//    cout << res << endl;
-    for (int i = 0; i < 5; i++) {
-        ABC abc = ABC(i);
-        std::cout << &abc << " " << &abc.number << " " << abc.number << " " << &abc.numbers << " " << abc.numbers[2]
-                  << std::endl;
-    }
+    return 0;
 }
-

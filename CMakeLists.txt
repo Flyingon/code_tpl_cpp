@@ -131,9 +131,15 @@ add_executable(move_semantic_string for_move_semantic/demo/demo_string.cpp)
 if (TARGET sqlite_demo)
 endif ()
 if (MACOS)
-    include_directories(/opt/homebrew/opt/sqlite/include/)
-    link_directories(/opt/homebrew/opt/sqlite/lib/)
-    link_libraries(sqlite3)
+    include_directories(
+            /opt/homebrew/opt/sqlite/include
+            /opt/homebrew/opt/sdl2/include
+    )
+    link_directories(
+            /opt/homebrew/opt/sqlite/lib
+            /opt/homebrew/opt/sdl2/lib
+    )
+    link_libraries(sqlite3 sdl2)
 endif ()
 
 add_executable(sqlite_demo for_db/for_sqlite3/demo.cpp)
@@ -154,13 +160,16 @@ add_executable(parserso tookkit/parseso/soparse.c tookkit/parseso/dataType.h too
 include_directories(for_pragma_once/dir3 for_pragma_once/dir2)
 add_executable(dir1_execute for_pragma_once/dir1/execute.cpp)
 
+# --------------------------- for_sdl2 ---------------------------
+add_executable(sdl2_text_input for_sdl2/text_input.cpp)
+
 # --------------------------- temp ---------------------------
 if (MACOS)
     include_directories(/opt/homebrew/opt/openssl/include /opt/homebrew/opt/jsoncpp/include)
 
     #    link_directories(/opt/homebrew/opt/jsoncpp/lib /opt/homebrew/opt/openssl/lib/)
     #    link_libraries(/opt/homebrew/opt/openssl/lib/libcrypto.a)
-    link_libraries(curl jsoncpp)
+    #    link_libraries(curl jsoncpp)
 endif ()
 
 add_executable(temp temp/temp.cpp)

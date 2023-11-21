@@ -6,9 +6,11 @@ typedef struct {
 } Data;
 
 void readfile(Data *d) {
-    const char *FileName = "/Users/zy.yuan/Develop/github.com/Flyingon/code_tpl_cpp/tookkit/memo_tool/config.ini";
+    std::string userPath = getenv("HOME");
+    std::string fileName = userPath + "/.config/memo_tool/config.ini";
+//    const char *FileName = "/Users/zy.yuan/Develop/github.com/Flyingon/code_tpl_cpp/tookkit/memo_tool/config.ini";
     char LineBuf[MAX_LEN] = {0};
-    FILE *configFile = fopen(FileName, "r");
+    FILE *configFile = fopen(fileName.c_str(), "r");
     memset(d, 0, sizeof(Data));
     while (NULL != fgets(LineBuf, sizeof(LineBuf), configFile)) {
         size_t bufLen = strlen(LineBuf);
@@ -31,5 +33,4 @@ void readfile(Data *d) {
     }
     fclose(configFile);
     configFile = NULL;
-    return;
 }

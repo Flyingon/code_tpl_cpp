@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <ctime>
 
 #include "m_sqlite3.h"
 #include "m_sqlite3.cpp"
@@ -41,7 +40,7 @@ int query_record_table(Sqlite3 &sqlite3, std::string &msg, const std::string &ty
         else
             sql += " WHERE status in (" + status_str + ")";
     }
-//  std::cout << "[SQL] " << sql << std::endl;
+//    std::cout << "[SQL] " << sql << std::endl;
     return sqlite3.sql_execute(sql, msg);
 }
 
