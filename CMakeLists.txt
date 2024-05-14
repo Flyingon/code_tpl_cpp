@@ -146,9 +146,11 @@ add_executable(cache_file tookkit/cache_file/cache_file.cpp)
 if (MACOS)
     include_directories(/opt/homebrew/opt/openssl/include /opt/homebrew/opt/jsoncpp/include)
 
-#    link_directories(/opt/homebrew/opt/jsoncpp/lib /opt/homebrew/opt/openssl/lib/)
+    link_directories(/opt/homebrew/opt/jsoncpp/lib /opt/homebrew/opt/openssl/lib/ /opt/homebrew/opt/libiconv/lib/)
     #    link_libraries(/opt/homebrew/opt/openssl/lib/libcrypto.a)
     link_libraries(curl jsoncpp)
 endif ()
 
 add_executable(temp temp/temp.cpp)
+
+add_subdirectory(tookkit/png_tool)

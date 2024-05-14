@@ -1,0 +1,164 @@
+#include <iostream>
+#include <vector>
+#include <cstring>
+#include <png.h>
+
+// Function to read PNG image
+bool read_png_file(const char *filename, std::vector<png_bytep> &rows, png_uint_32 &width, png_uint_32 &height, int &bit_depth, int &color_type) {
+    FILE *fp = fopen(filename, "rb");
+    if (!fp) {
+        std::cerr << "Error: Unable to open file " << filename << std::endl;
+        return false;
+    }
+
+    png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    if (!png_ptr) {
+        fclose(fp);
+        return false;
+    }
+
+    png_infop info_ptr = png_create_info_struct(png_ptr);
+    if (!info_ptr) {
+        png_destroy_read_struct(&png_ptr, NULL, NULL);
+        fclose(fp);
+        return false;
+    }
+
+    png_init_io(png_ptr, fp);
+    png_read_info(png_ptr, info_ptr);
+
+    width = png_get_image_width(png_ptr, info_ptr);
+    height = png_get_image_height(png_ptr, info_ptr);
+    bit_depth = png_get_bit_depth(png_ptr, info_ptr);
+    color_type = png_get_color_type(png_ptr, info_ptr);
+
+    if (bit_depth == 16)
+        png_set_strip_16(png_ptr);
+    if (color_type == PNG_COLOR_TYPE_PALETTE)
+        png_set_palette_to_rgb(png_ptr);
+    if (color_type == PNG_COLOR_TYPE_GRAY && bit_depth < 8)
+        png_set_expand_gray_1_2_4_to_8(png_ptr);
+    if (png_get_valid(png_ptr, info_ptr, PNG_INFO_tRNS))
+        png_set_tRNS_to_alpha(png_ptr);
+
+    png_read_update_info(png_ptr, info_ptr);
+
+    rows.resize(height);
+    for (png_uint_32 i = 0; i < height; ++i) {
+        rows[i] = (png_bytep)malloc(png_get_rowbytes(png_ptr, info_ptr));
+    }
+
+    png_read_image(png_ptr, &rows[0]);
+
+    png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
+    fclose(fp);
+
+    return true;
+}
+
+// Function to write PNG image
+bool write_png_file(const char *filename, std::vector<png_bytep> &rows, png_uint_32 width, png_uint_32 height, int bit_depth, int color_type) {
+    FILE *fp = fopen(filename, "wb");
+    if (!fp) {
+        std::cerr << "Error: Unable to create file " << filename << std::endl;
+        return false;
+    }
+
+    png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    if (!png_ptr) {
+        fclose(fp);
+        return false;
+    }
+
+    png_infop info_ptr = png_create_info_struct(png_ptr);
+    if (!info_ptr) {
+        png_destroy_write_struct(&png_ptr, NULL);
+        fclose(fp);
+        return false;
+    }
+
+    png_init_io(png_ptr, fp);
+    png_set_IHDR(png_ptr, info_ptr, width, height, bit_depth, color_type, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
+    png_write_info(png_ptr, info_ptr);
+
+    png_write_image(png_ptr, &rows[0]);
+    png_write_end(png_ptr, NULL);
+
+    png_destroy_write_struct(&png_ptr, &info_ptr);
+    fclose(fp);
+
+    return true;
+}
+
+// Function to combine multiple PNG images into one
+bool combine_png_images(const std::vector<const char*> &input_files, const char *output_file) {
+    std::vector<std::vector<png_bytep>> rows_list;
+    std::vector<png_uint_32> widths, heights;
+    std::vector<int> bit_depths, color_types;
+
+    // Read all input images
+    for (const char *input_file : input_files) {
+        std::vector<png_bytep> rows;
+        png_uint_32 width, height;
+        int bit_depth, color_type;
+
+        if (!read_png_file(input_file, rows, width, height, bit_depth, color_type)) {
+            std::cerr << "Error reading file: " << input_file << std::endl;
+            return false;
+        }
+
+        rows_list.push_back(rows);
+        widths.push_back(width);
+        heights.push_back(height);
+        bit_depths.push_back(bit_depth);
+        color_types.push_back(color_type);
+    }
+
+    // Determine the width and height of the combined image
+    png_uint_32 combined_width = 0, combined_height = 0;
+    for (png_uint_32 width : widths)
+        combined_width += width;
+    combined_height = *std::max_element(heights.begin(), heights.end());
+
+    // Create the combined image
+    std::vector<png_bytep> combined_rows(combined_height);
+    for (png_uint_32 i = 0; i < combined_height; ++i) {
+        combined_rows[i] = (png_bytep)malloc(combined_width * sizeof(png_byte) * 4); // Assuming RGBA format
+        memset(combined_rows[i], 0, combined_width * sizeof(png_byte) * 4); // Initialize to transparent black
+    }
+
+    // Copy image data to the combined image
+    png_uint_32 offset_x = 0;
+    for (size_t i = 0; i < input_files.size(); ++i) {
+        for (png_uint_32 y = 0; y < heights[i]; ++y) {
+            memcpy(combined_rows[y] + offset_x * 4, rows_list[i][y], widths[i] * sizeof(png_byte) * 4); // Assuming RGBA format
+        }
+        offset_x += widths[i];
+    }
+
+    // Write the combined image to file
+    if (!write_png_file(output_file, combined_rows, combined_width, combined_height, 8, PNG_COLOR_TYPE_RGBA)) {
+        std::cerr << "Error writing combined image to file." << std::endl;
+        return false;
+    }
+
+    // Free memory
+    for (png_bytep row : combined_rows)
+        free(row);
+
+    return true;
+}
+
+// Example usage
+int main() {
+    std::vector<const char*> input_files = {"input1.png", "input2.png", "input3.png"}; // List of input PNG files
+    const char *output_file = "combined_output.png"; // Output file name
+
+    if (combine_png_images(input_files, output_file)) {
+        std::cout << "Images combined successfully!" << std::endl;
+    } else {
+        std::cerr << "Failed to combine images." << std::endl;
+    }
+
+    return 0;
+}
