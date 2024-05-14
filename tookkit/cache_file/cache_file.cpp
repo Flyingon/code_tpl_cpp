@@ -20,7 +20,7 @@ int set_data(const string &file_path, const string &data) {
 }
 
 int read_data(const string &file_path) {
-    // 以写模式打开文件
+    // 以读模式打开文件
     ifstream fread;
     fread.open(file_path);
 

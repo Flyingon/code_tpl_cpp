@@ -71,6 +71,7 @@ add_executable(copy_constructor for_copy/constructor.cpp)
 
 # --------------------------- for_string ---------------------------
 add_executable(string_heap for_string/str_cls/str_on_heap.cc)
+add_executable(string_join for_string/operator/join.cc)
 
 # --------------------------- for_glfw ---------------------------
 if (WINDOWS)
@@ -98,6 +99,7 @@ add_executable(const_basic for_const/basic.cpp)
 # --------------------------- for_template ---------------------------
 add_executable(cls_tpl_v1 for_template/cls_tpl/cls_tpl_v1.cpp)
 add_executable(func_tpl_print for_template/func_tpl/print.cpp)
+add_executable(multi_type_vector for_template/vector/multi_type_vector.cpp)
 
 # --------------------------- for_tree ---------------------------
 add_executable(b+tree for_tree/bplus/basic.cpp)
@@ -107,6 +109,10 @@ add_executable(func_pointer for_pointer/function/func_pointer.cpp)
 
 # --------------------------- for_thread ---------------------------
 add_executable(thread_basic for_thread/basic/basic.cpp)
+add_executable(trhead_lock_demo1_unlock for_thread/lock/demo1.cpp)
+add_executable(trhead_lock_demo2_lock for_thread/lock/demo2.cpp)
+add_executable(trhead_lock_demo3_dead_lock for_thread/lock/demo3.cpp)
+add_executable(trhead_lock_demo4_lock_guard for_thread/lock/demo4.cpp)
 
 # --------------------------- for_chrono ---------------------------
 add_executable(chrono_timer for_chrono/timer/timer.cpp)
@@ -125,9 +131,15 @@ add_executable(move_semantic_string for_move_semantic/demo/demo_string.cpp)
 if (TARGET sqlite_demo)
 endif ()
 if (MACOS)
-    include_directories(/opt/homebrew/opt/sqlite/include/)
-    link_directories(/opt/homebrew/opt/sqlite/lib/)
-    link_libraries(sqlite3)
+    include_directories(
+            /opt/homebrew/opt/sqlite/include
+            /opt/homebrew/opt/sdl2/include
+    )
+    link_directories(
+            /opt/homebrew/opt/sqlite/lib
+            /opt/homebrew/opt/sdl2/lib
+    )
+    link_libraries(sqlite3 sdl2)
 endif ()
 
 add_executable(sqlite_demo for_db/for_sqlite3/demo.cpp)
@@ -141,14 +153,24 @@ add_executable(memo_tool_show tookkit/memo_tool/show.cpp)
 add_executable(memo_tool_update tookkit/memo_tool/update.cpp)
 
 add_executable(cache_file tookkit/cache_file/cache_file.cpp)
+add_executable(parserso tookkit/parseso/soparse.c tookkit/parseso/dataType.h tookkit/parseso/elf.h)
+
+
+# --------------------------- for_pragma_once ---------------------------
+include_directories(for_pragma_once/dir3 for_pragma_once/dir2)
+add_executable(dir1_execute for_pragma_once/dir1/execute.cpp)
+
+# --------------------------- for_sdl2 ---------------------------
+add_executable(sdl2_text_input for_sdl2/text_input.cpp)
 
 # --------------------------- temp ---------------------------
 if (MACOS)
     include_directories(/opt/homebrew/opt/openssl/include /opt/homebrew/opt/jsoncpp/include)
 
     link_directories(/opt/homebrew/opt/jsoncpp/lib /opt/homebrew/opt/openssl/lib/ /opt/homebrew/opt/libiconv/lib/)
+    #    link_directories(/opt/homebrew/opt/jsoncpp/lib /opt/homebrew/opt/openssl/lib/)
     #    link_libraries(/opt/homebrew/opt/openssl/lib/libcrypto.a)
-    link_libraries(curl jsoncpp)
+    #    link_libraries(curl jsoncpp)
 endif ()
 
 add_executable(temp temp/temp.cpp)

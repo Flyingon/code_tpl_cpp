@@ -26,6 +26,7 @@ int testFunc() {
     return 0;
 }
 
+// 验证从什么长度开始，从堆上创建
 int main() {
     testFunc();
     std::cout << "FINISH" << std::endl;

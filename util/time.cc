@@ -3,7 +3,7 @@
 # include <time.h>
 # include <string>
 
-time_t StringToTimeStamp(std::string str) {
+time_t StringToTimeStamp(const std::string& str) {
     struct tm tm_;
     int year, month, day, hour, minute, second;
     sscanf(str.c_str(), "%d-%d-%d %d:%d:%d", &year, &month, &day, &hour, &minute, &second);
