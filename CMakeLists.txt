@@ -15,12 +15,21 @@ endif ()
 #include_directories(./)
 #link_directories(./)
 
+SET(CMAKE_OSX_ARCHITECTURES "arm64")
+
+
+# 查找 Boost 库
+find_package(Boost REQUIRED COMPONENTS system filesystem)
+# 包含 Boost、OpenSSL 头文件路径
+include_directories(
+        ${Boost_INCLUDE_DIRS}
+)
 
 if (WINDOWS)
     include_directories(./dependencies/mysql/mysql)
     link_directories(./dependencies/mysql-connector-c-6.1.11-winx64/lib)
 elseif (MACOS)
-    include_directories(~/.dependencies/boost_1_82_0/)
+#    include_directories(~/.dependencies/boost_1_82_0/)
 
 endif ()
 
@@ -165,14 +174,29 @@ add_executable(sdl2_text_input for_sdl2/text_input.cpp)
 
 # --------------------------- temp ---------------------------
 if (MACOS)
-    include_directories(/opt/homebrew/opt/openssl/include /opt/homebrew/opt/jsoncpp/include)
+    include_directories(
+            /opt/homebrew/opt/openssl/include
+            /opt/homebrew/opt/jsoncpp/include
+    )
 
-    link_directories(/opt/homebrew/opt/jsoncpp/lib /opt/homebrew/opt/openssl/lib/ /opt/homebrew/opt/libiconv/lib/)
+    link_directories(
+            /opt/homebrew/opt/jsoncpp/lib
+            /opt/homebrew/opt/openssl/lib/
+            /opt/homebrew/opt/libiconv/lib/
+    )
     #    link_directories(/opt/homebrew/opt/jsoncpp/lib /opt/homebrew/opt/openssl/lib/)
     #    link_libraries(/opt/homebrew/opt/openssl/lib/libcrypto.a)
     #    link_libraries(curl jsoncpp)
 endif ()
 
+
 add_executable(temp temp/temp.cpp)
+add_executable(temp2 temp/temp2.cc)
+target_link_libraries(temp2
+        Boost::system
+        Boost::filesystem
+        ssl
+        crypto
+)
 
 add_subdirectory(tookkit/png_tool)
