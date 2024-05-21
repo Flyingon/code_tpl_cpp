@@ -58,23 +58,26 @@ void christmas_hat(const std::string& fname, const std::string& cname) {
             }
         }
     }
-    cv::imwrite("img/result/" + fname.substr(fname.find_last_of("/") + 1), img);
+    // Display the result
+    cv::imshow("Face add hats", img);
+    cv::waitKey(0);  // Wait for a key press to close the window
+//    cv::imwrite("img/result/" + fname.substr(fname.find_last_of("/") + 1), img);
 }
 
-std::string haarcascades_path = "/usr/local/share/opencv4/haarcascades";
-
-int main(int argc, char** argv) {
-    std::string fname = "/Users/yuanzhaoyi/Docs/photo/Pattaya/IMG_0473.JPG";
-    std::cout << "请选择要添加圣诞帽的对象: 1 人 2 猫 3 动漫 (默认1) ";
-    std::string target;
-    std::cin >> target;
-    std::string cname;
-    if (target.empty()) target = "1";
-    if (target == "1") cname = haarcascades_path + "/haarcascade_frontalface_alt.xml";
-    else if (target == "2") cname =  haarcascades_path + "/haarcascade_frontalcatface.xml";
-    else if (target == "3") cname =  haarcascades_path + "/lbpcascade_animeface.xml";
-    else std::cout << "检测对象输入有误" << std::endl;
-
-    christmas_hat(fname, cname);
-    return 0;
-}
+//std::string haarcascades_path = "/usr/local/share/opencv4/haarcascades";
+//
+//int main(int argc, char** argv) {
+//    std::string fname = "/Users/yuanzhaoyi/Docs/photo/Pattaya/IMG_0473.JPG";
+//    std::cout << "请选择要添加圣诞帽的对象: 1 人 2 猫 3 动漫 (默认1) ";
+//    std::string target;
+//    std::cin >> target;
+//    std::string cname;
+//    if (target.empty()) target = "1";
+//    if (target == "1") cname = haarcascades_path + "/haarcascade_frontalface_alt.xml";
+//    else if (target == "2") cname =  haarcascades_path + "/haarcascade_frontalcatface.xml";
+//    else if (target == "3") cname =  haarcascades_path + "/lbpcascade_animeface.xml";
+//    else std::cout << "检测对象输入有误" << std::endl;
+//
+//    christmas_hat(fname, cname);
+//    return 0;
+//}
