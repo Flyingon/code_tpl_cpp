@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
 //    else std::cout << "检测对象输入有误" << std::endl;
 //
 //    christmas_hat(fname, cname);
-
+//
     // Load the image
     cv::Mat img = cv::imread(fname);
     if (img.empty()) {
@@ -39,7 +39,8 @@ int main(int argc, char** argv) {
 //    gaussian_blur(img, img_result);
 //    rotation(img, img_result);
 //    cartoonV1(img, img_result);
-    cartoonV2(img, img_result);
+//    cartoonV2(img, img_result);
+    pixelateImage(img, img_result, 4);
 
     // Display the result
     cv::imshow("Result img", img_result);

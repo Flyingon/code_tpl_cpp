@@ -115,3 +115,13 @@ void cartoonV2 (const cv::Mat &img, cv::Mat &result) {
     cv::cvtColor(edges, edgesColor, cv::COLOR_GRAY2BGR); // Convert edges to 3 channels
     result = smoothedImage & edgesColor;
 }
+
+// Function to apply pixelation effect
+cv::Mat pixelateImage(const cv::Mat& src, cv::Mat &result, int pixelSize) {
+    cv::Mat smallImage;
+    // Resize down
+    cv::resize(src, smallImage, cv::Size(src.cols / pixelSize, src.rows / pixelSize), 0, 0, cv::INTER_LINEAR);
+    // Resize up to the original size
+    cv::resize(smallImage, result, cv::Size(src.cols, src.rows), 0, 0, cv::INTER_NEAREST);
+    return result;
+}
