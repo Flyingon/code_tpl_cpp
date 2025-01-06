@@ -200,3 +200,4 @@ target_link_libraries(temp2
 )
 
 add_subdirectory(tookkit/png_tool)
+add_subdirectory(datastruct)
